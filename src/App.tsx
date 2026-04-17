@@ -25,6 +25,7 @@ import {
   ExternalLink,
   ChevronRight
 } from "lucide-react";
+import { send } from '@emailjs/browser';
 // --- Components ---
 
 const Navbar = () => {
@@ -482,20 +483,21 @@ const Contact = () => {
     setStatus("loading");
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      await send(
+        'default_service', // Service ID
+        'template_e44a6g8', // Template ID
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
+        'HToMGA4vEGuwOXnhC' // Public Key
+      );
 
-      if (response.ok) {
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-      } else {
-        setStatus("error");
-      }
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
     } catch (error) {
-      console.error(error);
+      console.error('Erro ao enviar:', error);
       setStatus("error");
     }
   };
@@ -571,14 +573,9 @@ const Contact = () => {
 const Footer = () => {
   return (
     <footer className="py-8 border-t border-white/[0.08]">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="text-xs text-[#94A3B8]">
+      <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center gap-4">
+        <div className="text-xs text-[#94A3B8] text-center">
           &copy; 2026 DevPro Freelancer. Localizado em Curitiba para o mundo.
-        </div>
-        
-        <div className="flex items-center gap-8 text-[13px] font-medium text-[#94A3B8]">
-          <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
-          <a href="#" className="hover:text-white transition-colors">GitHub</a>
         </div>
       </div>
     </footer>

@@ -49,7 +49,7 @@ async function startServer() {
       }
 
       const result = await resend.emails.send({
-        from: "DevPremium Contact <contact@devpremium.com>", // Change to your verified domain
+        from: "DevPremium Contact <contact@dev.premium>",
         to: recipientEmail,
         subject: `Novo Contato Portfólio: ${validatedData.name}`,
         html: `
@@ -59,6 +59,14 @@ async function startServer() {
           <p><strong>Mensagem:</strong></p>
           <p>${validatedData.message.replace(/\n/g, '<br>')}</p>
         `,
+        text: `NOVO CONTATO RECEBIDO PELO SEU PORTFÓLIO!
+
+Nome: ${validatedData.name}
+
+E-mail: ${validatedData.email}
+
+Mensagem:
+${validatedData.message}`,
       });
 
       console.log(`Email sent successfully: ${result.data?.id}`);
