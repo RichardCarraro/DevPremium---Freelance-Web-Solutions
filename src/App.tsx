@@ -383,7 +383,7 @@ const Pricing = () => {
     },
     {
       name: "Profissional",
-      price: "2.990",
+      price: "1.990",
       desc: "Para empresas que buscam impacto e resultados reais.",
       features: ["Site Completo (Multi-páginas)", "Design Exclusivo", "Integração Analytics", "Blog/Painel Administrativo", "Copywriting Estratégico"],
       button: "Iniciar Profissional",
